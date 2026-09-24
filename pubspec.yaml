@@ -1,0 +1,29 @@
+name: ledger
+description: Local-first categorized bookkeeping for Android.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  characters: ^1.4.1
+  drift: ^2.35.0
+  drift_flutter: ^0.3.1
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  dynamic_color: ^1.8.1
+  intl: any
+
+dev_dependencies:
+  build_runner: ^2.16.1
+  drift_dev: ^2.35.0
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true

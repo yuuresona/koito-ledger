@@ -1,0 +1,72 @@
+{
+  "@@locale": "en",
+  "appTitle": "Ledger",
+  "transactions": "Transactions",
+  "statistics": "Statistics",
+  "transactionsPlaceholder": "Transactions will appear here.",
+  "statisticsPlaceholder": "Monthly statistics will appear here.",
+  "manageCategories": "Manage categories",
+  "categories": "Categories",
+  "expense": "Expense",
+  "income": "Income",
+  "addCategory": "Add category",
+  "addSubcategory": "Add subcategory",
+  "rename": "Rename",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "retry": "Retry",
+  "categoryName": "Category name",
+  "noExpenseCategories": "No expense categories yet.",
+  "noIncomeCategories": "No income categories yet.",
+  "databaseOpenError": "Ledger could not open its local database.",
+  "databaseOpenErrorHint": "Your data was not changed. Try opening it again.",
+  "categoryNameRequired": "Enter a category name.",
+  "categoryNameTooLong": "Use 30 characters or fewer.",
+  "categoryNameDuplicate": "A sibling category already uses this name.",
+  "categoryOperationFailed": "The category change could not be saved. Try again.",
+  "deleteCategory": "Delete category",
+  "deleteSubcategory": "Delete subcategory",
+  "deleteCategoryAndRecords": "Delete category and records",
+  "moveCategoryAndRecords": "Move subtree and records",
+  "deleteSubcategoryAndRecords": "Delete subcategory and records",
+  "moveSubcategoryRecords": "Move records elsewhere",
+  "deleteCategorySummary": "Delete {childCount} subcategories and {transactionCount} transactions. This cannot be undone.",
+  "@deleteCategorySummary": {
+    "placeholders": {
+      "childCount": {"type": "int"},
+      "transactionCount": {"type": "int"}
+    }
+  },
+  "deleteSubcategorySummary": "Delete this subcategory and {transactionCount} transactions. This cannot be undone.",
+  "@deleteSubcategorySummary": {
+    "placeholders": {
+      "transactionCount": {"type": "int"}
+    }
+  },
+  "selectTargetCategory": "Select target category",
+  "noMigrationTargets": "No valid destination is available.",
+  "categoryOnlyTarget": "{name} (no subcategory)",
+  "@categoryOnlyTarget": {
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "resolveNameConflict": "Resolve name conflict",
+  "categoryConflictMessage": "Both subtrees contain “{name}”. Choose how to move the source subcategory.",
+  "@categoryConflictMessage": {
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "merge": "Merge",
+  "renameAndMove": "Rename & move",
+  "moveCategoryConfirmation": "Move this category, its subcategories, and its transactions to “{targetName}”, then delete the source category?",
+  "@moveCategoryConfirmation": {
+    "placeholders": {"targetName": {"type": "String"}}
+  },
+  "moveSubcategoryConfirmation": "Move {transactionCount} transactions to “{targetName}”, then delete the source subcategory?",
+  "@moveSubcategoryConfirmation": {
+    "placeholders": {
+      "transactionCount": {"type": "int"},
+      "targetName": {"type": "String"}
+    }
+  },
+  "confirm": "Confirm"
+}

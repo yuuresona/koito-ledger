@@ -1,0 +1,3 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Ledger does not request network access, including in profile builds. -->
+</manifest>
