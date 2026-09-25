@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import '../core/database/app_database.dart';
 import '../features/categories/application/category_application_service.dart';
 import '../features/categories/data/category_repository.dart';
+import '../features/statistics/data/statistics_repository.dart';
+import '../features/transactions/data/transaction_repository.dart';
 import '../l10n/app_localizations.dart';
 import 'app_shell.dart';
 import 'theme/ledger_theme.dart';
@@ -62,9 +64,12 @@ class _LedgerAppState extends State<LedgerApp> {
               return _DatabaseError(onRetry: _retryDatabase);
             }
             final repository = CategoryRepository(_database);
+            final transactionRepository = TransactionRepository(_database);
             return AppShell(
               categoryRepository: repository,
               categoryService: CategoryApplicationService(_database),
+              transactionRepository: transactionRepository,
+              statisticsRepository: StatisticsRepository(transactionRepository),
             );
           },
         ),

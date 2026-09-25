@@ -41,6 +41,7 @@ class CategoryRecords extends Table {
 )
 @TableIndex(name: 'transactions_category', columns: {#categoryId})
 @TableIndex(name: 'transactions_subcategory', columns: {#subcategoryId})
+@DataClassName('LedgerTransactionRecord')
 class LedgerTransactions extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get amountCents => integer().customConstraint(
@@ -69,19 +70,51 @@ class LedgerTransactions extends Table {
   IntColumn get updatedAtMicros => integer()();
 }
 
-@DriftDatabase(tables: [CategoryRecords, LedgerTransactions])
+class TransactionDraftRecords extends Table {
+  IntColumn get id => integer().customConstraint('NOT NULL CHECK (id = 1)')();
+  TextColumn get amountText => text()();
+  IntColumn get entryType =>
+      integer().customConstraint('NOT NULL CHECK (entry_type IN (0, 1))')();
+
+  @ReferenceName('draftLevelTwoCategory')
+  IntColumn get categoryId => integer().nullable().references(
+    CategoryRecords,
+    #id,
+    onDelete: KeyAction.setNull,
+  )();
+
+  @ReferenceName('draftLevelThreeCategory')
+  IntColumn get subcategoryId => integer().nullable().references(
+    CategoryRecords,
+    #id,
+    onDelete: KeyAction.setNull,
+  )();
+  TextColumn get note => text()();
+  IntColumn get updatedAtMicros => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+@DriftDatabase(
+  tables: [CategoryRecords, LedgerTransactions, TransactionDraftRecords],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(driftDatabase(name: 'ledger'));
 
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (migrator) => migrator.createAll(),
-    onUpgrade: (migrator, from, to) {
+    onUpgrade: (migrator, from, to) async {
+      if (from == 1 && to == 2) {
+        await migrator.createTable(transactionDraftRecords);
+        return;
+      }
       throw StateError('Missing database migration from $from to $to.');
     },
     beforeOpen: (_) => customStatement('PRAGMA foreign_keys = ON'),

@@ -209,10 +209,106 @@ class LedgerTransactions extends Table with TableInfo {
   bool get dontWriteConstraints => true;
 }
 
-class DatabaseAtV1 extends GeneratedDatabase {
-  DatabaseAtV1(QueryExecutor e) : super(e);
+class TransactionDraftRecords extends Table with TableInfo {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  TransactionDraftRecords(this.attachedDatabase, [this._alias]);
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL CHECK (id = 1)',
+  );
+  late final GeneratedColumn<String> amountText = GeneratedColumn<String>(
+    'amount_text',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  late final GeneratedColumn<int> entryType = GeneratedColumn<int>(
+    'entry_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (entry_type IN (0, 1))',
+  );
+  late final GeneratedColumn<int> categoryId = GeneratedColumn<int>(
+    'category_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NULL REFERENCES categories(id)ON DELETE SET NULL',
+  );
+  late final GeneratedColumn<int> subcategoryId = GeneratedColumn<int>(
+    'subcategory_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NULL REFERENCES categories(id)ON DELETE SET NULL',
+  );
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  late final GeneratedColumn<int> updatedAtMicros = GeneratedColumn<int>(
+    'updated_at_micros',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    amountText,
+    entryType,
+    categoryId,
+    subcategoryId,
+    note,
+    updatedAtMicros,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'transaction_draft_records';
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
+    throw UnsupportedError('TableInfo.map in schema verification code');
+  }
+
+  @override
+  TransactionDraftRecords createAlias(String alias) {
+    return TransactionDraftRecords(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints => const ['PRIMARY KEY(id)'];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class DatabaseAtV2 extends GeneratedDatabase {
+  DatabaseAtV2(QueryExecutor e) : super(e);
   late final Categories categories = Categories(this);
   late final LedgerTransactions ledgerTransactions = LedgerTransactions(this);
+  late final TransactionDraftRecords transactionDraftRecords =
+      TransactionDraftRecords(this);
   late final Index categoriesLevel2NameUnique = Index(
     'categories_level2_name_unique',
     'CREATE UNIQUE INDEX categories_level2_name_unique ON categories (entry_type, normalized_name) WHERE parent_id IS NULL',
@@ -244,6 +340,7 @@ class DatabaseAtV1 extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     categories,
     ledgerTransactions,
+    transactionDraftRecords,
     categoriesLevel2NameUnique,
     categoriesLevel3NameUnique,
     categoriesCreationOrder,
@@ -252,5 +349,26 @@ class DatabaseAtV1 extends GeneratedDatabase {
     transactionsSubcategory,
   ];
   @override
-  int get schemaVersion => 1;
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'categories',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('transaction_draft_records', kind: UpdateKind.update),
+      ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'categories',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [
+        TableUpdate('transaction_draft_records', kind: UpdateKind.update),
+      ],
+    ),
+  ]);
+  @override
+  int get schemaVersion => 2;
 }

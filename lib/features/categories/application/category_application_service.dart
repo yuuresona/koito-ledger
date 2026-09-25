@@ -267,13 +267,17 @@ class CategoryApplicationService {
     return query.get();
   }
 
-  Future<List<LedgerTransaction>> _transactionsForLevelTwo(int categoryId) {
+  Future<List<LedgerTransactionRecord>> _transactionsForLevelTwo(
+    int categoryId,
+  ) {
     final query = _database.select(_database.ledgerTransactions)
       ..where((row) => row.categoryId.equals(categoryId));
     return query.get();
   }
 
-  Future<List<LedgerTransaction>> _transactionsForLevelThree(int categoryId) {
+  Future<List<LedgerTransactionRecord>> _transactionsForLevelThree(
+    int categoryId,
+  ) {
     final query = _database.select(_database.ledgerTransactions)
       ..where((row) => row.subcategoryId.equals(categoryId));
     return query.get();

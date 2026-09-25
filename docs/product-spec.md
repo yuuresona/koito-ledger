@@ -190,7 +190,7 @@ Empty and first-run behavior:
 - Each level-2 category shows its monthly amount and percentage of the corresponding income or expense total.
 - Indent level-3 rows beneath their level-2 parent and show their amounts and percentages using the same-side total as the denominator.
 - Show percentages to two decimal places (0.01% precision). For a nonzero share below 0.01%, display `<0.01%` rather than `0.00%`.
-- Transactions that have a level-2 category but no level-3 category appear under a `No subcategory` (final wording TBD) row only when that level-2 category also has transactions assigned to level-3 categories in the selected month. If all its transactions are level-2 only, display just the level-2 total to avoid repeating the same amount.
+- Transactions that have a level-2 category but no level-3 category appear under a `No subcategory` row only when that level-2 category also has transactions assigned to level-3 categories in the selected month. If all its transactions are level-2 only, display just the level-2 total to avoid repeating the same amount.
 - Categories with zero amount in the selected month are hidden.
 - If the applicable total is zero, do not calculate or display an invalid percentage.
 - If the selected month has no transactions, still show `Income ¥0.00`, `Expense ¥0.00`, and `Balance ¥0.00`, followed by `No transactions this month`; omit empty category lists.

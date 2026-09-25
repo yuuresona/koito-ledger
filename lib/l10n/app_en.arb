@@ -3,8 +3,66 @@
   "appTitle": "Ledger",
   "transactions": "Transactions",
   "statistics": "Statistics",
-  "transactionsPlaceholder": "Transactions will appear here.",
-  "statisticsPlaceholder": "Monthly statistics will appear here.",
+  "balance": "Balance",
+  "noSubcategory": "No subcategory",
+  "statisticsLoadFailed": "Statistics could not be loaded.",
+  "labeledAmount": "{label} {amount}",
+  "@labeledAmount": {
+    "placeholders": {
+      "label": {"type": "String"},
+      "amount": {"type": "String"}
+    }
+  },
+  "amountAndPercentage": "{amount} · {percentage}",
+  "@amountAndPercentage": {
+    "placeholders": {
+      "amount": {"type": "String"},
+      "percentage": {"type": "String"}
+    }
+  },
+  "previousMonth": "Previous month",
+  "nextMonth": "Next month",
+  "selectMonth": "Select month",
+  "noTransactionsThisMonth": "No transactions this month.",
+  "addTransaction": "Add transaction",
+  "newTransaction": "New transaction",
+  "editTransaction": "Edit transaction",
+  "amount": "Amount",
+  "amountHint": "0.00",
+  "date": "Date",
+  "category": "Category",
+  "subcategory": "Subcategory",
+  "none": "None",
+  "note": "Note",
+  "clearDraft": "Clear draft",
+  "createCategory": "Create category",
+  "selectCategory": "Select a category",
+  "deleteTransaction": "Delete transaction",
+  "deleteTransactionConfirmation": "Delete this transaction? This cannot be undone.",
+  "amountRequired": "Enter an amount.",
+  "amountInvalid": "Enter a positive amount with up to two decimal places.",
+  "amountZero": "Amount must be greater than ¥0.00.",
+  "amountTooLarge": "Amount cannot exceed ¥999,999,999.99.",
+  "futureDateNotAllowed": "Future dates are not allowed.",
+  "noteTooLong": "Use 200 characters or fewer.",
+  "categoryRequired": "Select a category.",
+  "subcategoryInvalid": "Select a valid subcategory.",
+  "transactionSaveFailed": "The transaction could not be saved. Try again.",
+  "transactionDeleteFailed": "The transaction could not be deleted. Try again.",
+  "categoryPath": "{category} · {subcategory}",
+  "@categoryPath": {
+    "placeholders": {
+      "category": {"type": "String"},
+      "subcategory": {"type": "String"}
+    }
+  },
+  "transactionTypeAndNote": "{type} · {note}",
+  "@transactionTypeAndNote": {
+    "placeholders": {
+      "type": {"type": "String"},
+      "note": {"type": "String"}
+    }
+  },
   "manageCategories": "Manage categories",
   "categories": "Categories",
   "expense": "Expense",

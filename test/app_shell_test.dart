@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger/app/ledger_app.dart';
+import 'package:ledger/core/time/year_month.dart';
+import 'package:intl/intl.dart';
 
 import 'helpers/test_database.dart';
 
@@ -20,11 +22,12 @@ void main() {
 
     expect(find.byType(NavigationBar), findsOneWidget);
     expect(find.byType(NavigationRail), findsNothing);
-    expect(find.text('Transactions will appear here.'), findsOneWidget);
+    expect(find.text('No transactions this month.'), findsOneWidget);
 
     await tester.tap(find.text('Statistics').last);
     await tester.pumpAndSettle();
-    expect(find.text('Monthly statistics will appear here.'), findsOneWidget);
+    expect(find.text('Income ¥0.00'), findsOneWidget);
+    expect(find.text('No transactions this month.'), findsOneWidget);
   });
 
   testWidgets('tablet uses navigation rail and switches destinations', (
@@ -45,7 +48,8 @@ void main() {
 
     await tester.tap(find.text('Statistics').last);
     await tester.pumpAndSettle();
-    expect(find.text('Monthly statistics will appear here.'), findsOneWidget);
+    expect(find.text('Income ¥0.00'), findsOneWidget);
+    expect(find.text('No transactions this month.'), findsOneWidget);
   });
 
   testWidgets('theme follows system brightness', (tester) async {
@@ -68,5 +72,25 @@ void main() {
       Theme.of(tester.element(find.byType(Scaffold))).brightness,
       Brightness.light,
     );
+  });
+
+  testWidgets('transactions and statistics share the selected month', (
+    tester,
+  ) async {
+    final database = createTestDatabase();
+    addTearDown(database.close);
+    await tester.pumpWidget(LedgerApp(database: database));
+    await tester.pumpAndSettle();
+
+    final previous = YearMonth.current().previous;
+    final previousLabel = DateFormat.yMMMM('en')
+        .format(DateTime(previous.year, previous.month));
+    await tester.tap(find.byKey(const Key('previous-month')));
+    await tester.pumpAndSettle();
+    expect(find.text(previousLabel), findsOneWidget);
+
+    await tester.tap(find.text('Statistics').last);
+    await tester.pumpAndSettle();
+    expect(find.text(previousLabel), findsOneWidget);
   });
 }
