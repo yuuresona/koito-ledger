@@ -20,12 +20,12 @@ Install the Stage 1 APK on the user's USB-connected Android phone and test it th
 
 ## Decisions
 
-- Use a physical Android device for runtime verification in this environment. The emulator transport connected, but Android never completed boot because hardware virtualization support is unavailable; changing the graphics renderer did not resolve the missing system window service.
+- Use a physical Android device for runtime verification in this environment because the available emulator did not complete boot.
 
 ## Verification
 
 - APK installation: succeeded using `adb install --no-streaming -r`.
-- Device: Android test device, Android 15, API 35.
+- Device: Android 15, API 35 test device.
 - Cold launch: succeeded.
 - Foreground activity: `site.yukiho.ledger/.MainActivity` remained the top resumed activity.
 - Visual checks: Transactions rendered with the expected empty state and selected bottom-navigation destination; Statistics rendered after an automated tap; switching back to Transactions succeeded.

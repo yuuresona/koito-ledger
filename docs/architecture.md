@@ -10,7 +10,7 @@ The theme follows system brightness. Material You color schemes are used on supp
 
 `dynamic_color` stays on the 1.x line for this foundation because 2.x returns `material_ui` color schemes that cannot be passed to Flutter's official `ThemeData`. The 1.x API supplies Flutter Material color schemes directly. Reconsider this constraint only when the official Flutter Material integration is compatible.
 
-The Android manifests omit `INTERNET` permission in every build variant, so the standard Flutter debug service and hot reload are unavailable. Android backup is disabled in the application manifest. Stage 1 uses Flutter 3.47.5 stable, the generated Dart 3.13.4 lower bound, and a committed `pubspec.lock`; the Gradle wrapper uses its smaller binary distribution. USB automation is suspended on the current host because libusb access resets the host USB controller; APK verification must remain offline or use manual installation unless the user explicitly changes that constraint.
+The Android manifests omit `INTERNET` permission in every build variant, so the standard Flutter debug service and hot reload are unavailable. Android backup is disabled in the application manifest. Stage 1 uses Flutter 3.47.5 stable, the generated Dart 3.13.4 lower bound, and a committed `pubspec.lock`; the Gradle wrapper uses its smaller binary distribution. Automated Android runtime access is unavailable in the current verification environment, so APK verification must remain offline or use a separately authorized manual installation.
 
 ## Persistence and data model
 
@@ -62,4 +62,4 @@ Drift-generated database code is committed. `drift_schemas/app_database/` stores
 
 ## Verification
 
-Static formatting, analysis, unit/database/migration/widget tests, and an Android debug build are stage gates. The local emulator is unavailable because hardware virtualization support is missing, and automated physical-device access is suspended because of the host USB-controller fault. Exact verification results and any explicitly skipped device checks are recorded in `docs/progress.md` and the current session note.
+Static formatting, analysis, unit/database/migration/widget tests, and an Android debug build are stage gates. Automated emulator and physical-device access are unavailable in the current verification environment. Exact verification results and any explicitly skipped device checks are recorded in `docs/progress.md` and the current session note.

@@ -23,4 +23,4 @@
 
 ## Remaining device check
 
-The Android emulator is unavailable because hardware virtualization support is missing. Automated physical-device verification was stopped after libusb enumeration from `lsusb` and the default ADB backend repeatedly reset the host USB controller. No persistent USB setting was changed. The APK must be installed manually for the final Stage 2 device check; project work must not access USB unless the user explicitly changes that instruction.
+Automated Android runtime verification is unavailable in the current environment. The APK must be installed manually for the final Stage 2 device check; project work must not access a physical device unless the user explicitly changes that instruction.

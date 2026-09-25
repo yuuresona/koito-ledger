@@ -39,5 +39,5 @@
 ## Android and handoff
 
 - The existing Stage 4 debug APK was not rebuilt because only tests and documentation changed. Its last verified SHA-256 remains `601bf9a484f5637c92746ae66f63a202b078f0e69f139632ca4fd719b7843996`.
-- Runtime verification remains unavailable locally because hardware virtualization support is absent; USB automation remains suspended because libusb enumeration resets the host USB controller. No USB command was run.
+- Automated Android runtime verification remains unavailable in the current environment. No physical-device command was run.
 - The MVP automated verification baseline is complete. Manual Android smoke testing, a baseline commit, and any release packaging require separate user authorization.

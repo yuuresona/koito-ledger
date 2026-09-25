@@ -26,4 +26,4 @@
 
 ## Environment constraint
 
-No further USB access is authorized. The local emulator lacks hardware virtualization support, and libusb operations reset the host USB controller. Stage 3 verification must use local automated checks and offline APK construction; the user has declined physical-device testing.
+No further physical-device access is authorized. Automated Android runtime verification is unavailable in the current environment, so Stage 3 verification must use local automated checks and offline APK construction; the user has declined physical-device testing.
